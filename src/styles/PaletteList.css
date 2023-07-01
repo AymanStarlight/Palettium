@@ -1,0 +1,7 @@
+.palettes {
+	box-sizing: border-box;
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(3, 30%);
+	grid-gap: 5%;
+}
