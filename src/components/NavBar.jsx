@@ -1,6 +1,8 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton, MenuItem, Select, Slider, Snackbar } from "@mui/material";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+
 export default function NavBar({ level, changeLevel, changeFormat }) {
 	const [format, setFormat] = useState("hex");
 	const [open, setOpen] = useState(false);
@@ -15,9 +17,9 @@ export default function NavBar({ level, changeLevel, changeFormat }) {
 	return (
 		<header className="flex items-center justify-start h-[6vh]">
 			<div className="logo mr-[15px] px-[13px] py-0 text-[22px] bg-[#eceff1] h-full flex items-center">
-				<a href="/" className="text-black">
+				<Link to="/" className="text-black">
 					reactcolorpicker
-				</a>
+				</Link>
 			</div>
 			<div className="slider-container flex items-center justify-center">
 				<span className="mr-7 font-medium">Level: {level}</span>

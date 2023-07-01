@@ -9,3 +9,4 @@
 - Added a drop-down menu (Material-I) to select different color formats
 - Added a SnackBar (Material-UI) when the color format changes & a Palette footer
 - Integrated React Router to change between different Palettes
+- Created the PaletteList Component & started constructing the Home page

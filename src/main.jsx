@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
+import PaletteRoute from "./routes/PaletteRoute.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -12,7 +13,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/palette/:id",
-		element: <h1>Hello Router</h1>,
+		element: <PaletteRoute />,
 	},
 ]);
 

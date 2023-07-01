@@ -1,14 +1,9 @@
 import "./App.css";
-import { generatePalette } from "./colorHelpers";
-import Palette from "./components/Palette";
+import PaletteList from "./components/PaletteList";
 import seedColors from "./seedColors";
 
 function App() {
-	return (
-		<>
-			<Palette palette={generatePalette(seedColors[3])} />
-		</>
-	);
+	return <PaletteList palettes={seedColors} />;
 }
 
 export default App;
