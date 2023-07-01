@@ -1,10 +1,16 @@
-import { MenuItem, Select, Slider } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { IconButton, MenuItem, Select, Slider, Snackbar } from "@mui/material";
 import { useState } from "react";
 export default function NavBar({ level, changeLevel, changeFormat }) {
 	const [format, setFormat] = useState("hex");
-	const handleChange = (e) => {
+	const [open, setOpen] = useState(false);
+	const handleFormatChange = (e) => {
 		setFormat(e.target.value);
 		changeFormat(e.target.value);
+		setOpen(true);
+	};
+	const closeToast = () => {
+		setOpen(false);
 	};
 	return (
 		<header className="flex items-center justify-start h-[6vh]">
@@ -51,13 +57,26 @@ export default function NavBar({ level, changeLevel, changeFormat }) {
 					/>
 				</div>
 			</div>
-			<div className="select-container">
-				<Select value={format} onChange={handleChange}>
+			<div className="select-container ml-auto mr-4">
+				<Select value={format} onChange={handleFormatChange}>
 					<MenuItem value="hex">HEX - #FFFFFF</MenuItem>
 					<MenuItem value="rgb">RBG - rgb(255,255,255)</MenuItem>
 					<MenuItem value="rgba">RBGA - rgba(255,255,255, 1.0)</MenuItem>
 				</Select>
 			</div>
+			<Snackbar
+				message={`Format Changed to ${format.toUpperCase()}`}
+				autoHideDuration={2000}
+				open={open}
+				onClose={closeToast}
+				action={
+					<>
+						<IconButton onClick={closeToast} color="inherit">
+							<CloseIcon />
+						</IconButton>
+					</>
+				}
+			/>
 		</header>
 	);
 }
