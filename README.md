@@ -10,3 +10,4 @@
 - Added a SnackBar (Material-UI) when the color format changes & a Palette footer
 - Integrated React Router to change between different Palettes
 - Created the PaletteList Component & started constructing the Home page
+- Created the MiniPalette Component to show the palettes in the Home screen
