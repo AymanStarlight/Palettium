@@ -6,3 +6,4 @@
 - Added the functionality of generating shades of every color
 - Added a slider to change the shades of colors
 - Added the NavBar Component
+- Added a drop-down menu (Material-I) to select different color formats
