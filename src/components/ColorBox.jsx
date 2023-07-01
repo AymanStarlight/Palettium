@@ -1,12 +1,39 @@
+import { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import "../styles/ColorBox.css";
 
 function ColorBox({ background, name }) {
+	const [copyOverlay, setCopyOverlay] = useState(false);
+	const changeCopyState = () => {
+		setCopyOverlay(true);
+		setTimeout(() => {
+			setCopyOverlay(false);
+		}, 1500);
+	};
 	return (
-		<CopyToClipboard text={background}>
+		<CopyToClipboard text={background} onCopy={changeCopyState}>
 			<div
 				style={{ background }}
 				className="ColorBox group w-1/5 h-1/4 mx-o my-auto inline-block relative cursor-pointer mb-[-6.5px]"
 			>
+				<div
+					className={`copy-overlay opacity-0 z-0 w-full h-full transition-[transform] ease-in-out duration-700 ${
+						copyOverlay && "opacity-100 scale-[50] z-10 absolute"
+					}`}
+					style={{ background }}
+				/>
+				<div
+					className={`copy-msg ${copyOverlay && "show"}`}
+					// className={` copy-msg fixed left-0 right-0 top-0 bottom-0 flex items-center justify-center text-[4rem] opacity-0 text-white ${
+					// 	copyOverlay &&
+					// 	`opacity-100 scale-1 z-20 transition duration-400 ease-in-out delay-300`
+					// }`}
+				>
+					<h1 className="font-normal bg-white/20 w-full text-center mb-0 p-4">
+						COPIED!
+					</h1>
+					<p className="text-[2rem]">{background}</p>
+				</div>
 				<div className="copy-container">
 					<div className=" absolute w-full left-0 bottom-0 p-[10px] text-black tracking-[1px] uppercase text-[12px] box-border">
 						<span>{name}</span>
