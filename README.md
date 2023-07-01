@@ -12,3 +12,4 @@
 - Created the PaletteList Component & started constructing the Home page
 - Created the MiniPalette Component to show the palettes in the Home screen
 - Created the SingleColorPalette Component to display different color shades & added a Palette footer
+- Added Dynamic Text-Color changing based on Luminosity (Chroma-JS)

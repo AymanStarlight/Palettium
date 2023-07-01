@@ -1,3 +1,4 @@
+import chroma from "chroma-js";
 import { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
@@ -12,6 +13,9 @@ function ColorBox({ background, name, colorId, paletteId, singleColor }) {
 			setCopyOverlay(false);
 		}, 1500);
 	};
+	const isDarkColor = chroma(background).luminance() >= 0.08;
+	const isLightColor = chroma(background).luminance() >= 0.6;
+
 	return (
 		<CopyToClipboard text={background} onCopy={changeCopyState}>
 			<div
@@ -38,11 +42,13 @@ function ColorBox({ background, name, colorId, paletteId, singleColor }) {
 					<h1 className="font-normal bg-white/20 w-full text-center mb-0 p-4">
 						COPIED!
 					</h1>
-					<p className="text-[2rem]">{background}</p>
+					<p className={`text-[2rem] ${isLightColor && "dark-text"}`}>
+						{background}
+					</p>
 				</div>
 				<div className="copy-container">
 					<div className=" absolute w-full left-0 bottom-0 p-[10px] text-black tracking-[1px] uppercase text-[12px] box-border">
-						<span>{name}</span>
+						<span className={`${!isDarkColor && "light-text"}`}>{name}</span>
 					</div>
 					<button className="group-hover:opacity-100 copy-btn w-[100px] h-[30px] absolute inline-block top-1/2 left-1/2 ml-[-50px] mt-[-15px] text-center outline-none text-base leading-[30px] text-white uppercase border-none opacity-0 bg-white/[0.3] transition ease-linear duration-400">
 						COPY
