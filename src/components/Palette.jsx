@@ -1,14 +1,22 @@
 import { useState } from "react";
 import ColorBox from "./ColorBox";
 import NavBar from "./NavBar";
+import PaletteFotter from "./PaletteFotter";
 
 function Palette(props) {
 	const [level, setLevel] = useState(500);
 	const [format, setFormat] = useState("hex");
-	const { colors, paletteName, emoji } = props.palette;
+	const { colors, paletteName, emoji, id } = props.palette;
 	const colorBoxes = colors[level].map((color) => {
 		return (
-			<ColorBox key={color.id} background={color[format]} name={color.name} />
+			<ColorBox
+				key={color.id}
+				background={color[format]}
+				name={color.name}
+				colorId={color.id}
+				paletteId={id}
+				singleColor={false}
+			/>
 		);
 	});
 	const changeLevel = (e) => {
@@ -23,12 +31,10 @@ function Palette(props) {
 				level={level}
 				changeLevel={changeLevel}
 				changeFormat={changeFormat}
+				singleColor={false}
 			/>
 			<div className="Palette-colors h-[90%]">{colorBoxes}</div>
-			<footer className="bg-white h-[5vh] flex justify-end items-center font-semibold">
-				{paletteName}
-				<span className="emoji text-[1.5rem] mx-4 my-0">{emoji}</span>
-			</footer>
+			<PaletteFotter paletteName={paletteName} emoji={emoji} />
 		</div>
 	);
 }

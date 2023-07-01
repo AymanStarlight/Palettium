@@ -4,7 +4,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Link } from "react-router-dom";
 import "../styles/ColorBox.css";
 
-function ColorBox({ background, name }) {
+function ColorBox({ background, name, colorId, paletteId, singleColor }) {
 	const [copyOverlay, setCopyOverlay] = useState(false);
 	const changeCopyState = () => {
 		setCopyOverlay(true);
@@ -16,7 +16,11 @@ function ColorBox({ background, name }) {
 		<CopyToClipboard text={background} onCopy={changeCopyState}>
 			<div
 				style={{ background }}
-				className="ColorBox group w-1/5 h-1/4 mx-o my-auto inline-block relative cursor-pointer mb-[-6.5px]"
+				className={` ${
+					singleColor
+						? "ColorBox group w-1/5 h-1/2 mx-o my-auto inline-block relative cursor-pointer mb-[-7px]"
+						: "ColorBox group w-1/5 h-1/4 mx-o my-auto inline-block relative cursor-pointer mb-[-6.5px]"
+				}`}
 			>
 				<div
 					className={`copy-overlay opacity-0 z-0 w-full h-full transition-[transform] ease-in-out duration-700 ${
@@ -43,11 +47,16 @@ function ColorBox({ background, name }) {
 					<button className="group-hover:opacity-100 copy-btn w-[100px] h-[30px] absolute inline-block top-1/2 left-1/2 ml-[-50px] mt-[-15px] text-center outline-none text-base leading-[30px] text-white uppercase border-none opacity-0 bg-white/[0.3] transition ease-linear duration-400">
 						COPY
 					</button>
-					<Link to="/" onClick={(e) => e.stopPropagation()}>
-						<span className="see-more bg-white/30 absolute border-none right-0 bottom-0 text-white w-[60px] h-[30px] text-center leading-[30px]">
-							MORE
-						</span>
-					</Link>
+					{!singleColor && (
+						<Link
+							to={`/palette/${paletteId}/${colorId}`}
+							onClick={(e) => e.stopPropagation()}
+						>
+							<span className="see-more bg-white/30 absolute border-none right-0 bottom-0 text-white w-[60px] h-[30px] text-center leading-[30px]">
+								MORE
+							</span>
+						</Link>
+					)}
 				</div>
 			</div>
 		</CopyToClipboard>
