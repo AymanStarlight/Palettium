@@ -1,6 +1,6 @@
-import { Slider } from "@mui/material";
 import { useState } from "react";
 import ColorBox from "./ColorBox";
+import NavBar from "./NavBar";
 
 function Palette(props) {
 	const [level, setLevel] = useState(500);
@@ -15,16 +15,7 @@ function Palette(props) {
 	};
 	return (
 		<div className="Palette h-screen">
-			<Slider
-				aria-label="color-shade"
-				defaultValue={500}
-				valueLabelDisplay="auto"
-				step={100}
-				marks
-				min={100}
-				max={900}
-				onChange={changeLevel}
-			/>
+			<NavBar level={level} changeLevel={changeLevel} />
 			<div className="Palette-colors h-[90%]">{colorBoxes}</div>
 		</div>
 	);
