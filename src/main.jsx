@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
+import NewPaletteForm from "./components/NewPaletteForm.jsx";
 import "./index.css";
 import PaletteRoute from "./routes/PaletteRoute.jsx";
 import SinglePaletteRoute from "./routes/SinglePaletteRoute.jsx";
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
 	{
 		path: "/",
 		element: <App />,
+	},
+	{
+		path: "/palette/create",
+		element: <NewPaletteForm />,
 	},
 	{
 		path: "/palette/:id",
