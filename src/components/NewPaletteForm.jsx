@@ -18,12 +18,15 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { styled, useTheme } from "@mui/material/styles";
 import * as React from "react";
+import { useState } from "react";
+import DraggableColorBox from "./DraggableColorBox";
 
 const drawerWidth = 400;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 	({ theme, open }) => ({
 		flexGrow: 1,
+		height: "calc(100vh - 64px)",
 		padding: theme.spacing(3),
 		transition: theme.transitions.create("margin", {
 			easing: theme.transitions.easing.sharp,
@@ -70,12 +73,24 @@ export default function NewPaletteForm() {
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
 
+	const [currentColor, setCurrentColor] = useState("tomato");
+	const [colors, setColors] = useState(["teal", "#ece324"]);
+
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
 
 	const handleDrawerClose = () => {
 		setOpen(false);
+	};
+
+	const updateCurrentColor = (newColor) => {
+		setCurrentColor(newColor.hex);
+	};
+
+	const addNewColor = () => {
+		setColors((Colors) => [...Colors, currentColor]);
+		console.log(colors);
 	};
 
 	return (
@@ -129,13 +144,24 @@ export default function NewPaletteForm() {
 						Random Color
 					</Button>
 				</div>
-				<ChromePicker color="purple" />
-				<Button variant="contained" color="primary">
+				<ChromePicker
+					color={currentColor}
+					onChangeComplete={(color) => updateCurrentColor(color)}
+				/>
+				<Button
+					variant="contained"
+					sx={{ bgcolor: currentColor }}
+					onClick={addNewColor}
+				>
 					Add Color
 				</Button>
 			</Drawer>
 			<Main open={open}>
 				<DrawerHeader />
+
+				{colors.map((color) => {
+					return <DraggableColorBox color={color} />;
+				})}
 			</Main>
 		</Box>
 	);

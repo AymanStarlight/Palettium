@@ -15,3 +15,4 @@
 - Added Dynamic Text-Color changing based on Luminosity (Chroma-JS)
 - Created the NewPaletteForm Component to create new palettes
 - Added a Drawer and a Color Picker to the NewPaletteForm Component
+- Added the functionality of adding new Color Boxes to the NewPaletteForm Component using the Color Picker
