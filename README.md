@@ -14,3 +14,4 @@
 - Created the SingleColorPalette Component to display different color shades & added a Palette footer
 - Added Dynamic Text-Color changing based on Luminosity (Chroma-JS)
 - Created the NewPaletteForm Component to create new palettes
+- Added a Drawer and a Color Picker to the NewPaletteForm Component
