@@ -11,7 +11,7 @@ export default function MiniPalette({ colors, emoji, paletteName, id }) {
 	return (
 		<Link to={`/palette/${id}`}>
 			<div className="container bg-white rounded-md p-[0.5rem] relative overflow-hidden hover:cursor-pointer border-solid border-2 border-black h-[202px]">
-				<div className="colors bg-[gray] h-[150px] w-full rounded-md overflow-hidden">
+				<div className="colors bg-gray-200 h-[150px] w-full rounded-md overflow-hidden">
 					{miniColorBoxes}
 				</div>
 				<h5 className="title flex justify-between items-center m-0 text-black pt-[0.5rem] text-base relative font-semibold">

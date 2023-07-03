@@ -1,16 +1,14 @@
 import { useParams } from "react-router-dom";
 import { generatePalette } from "../colorHelpers";
 import SingleColorPalette from "../components/SingleColorPalette";
-import seedColors from "../seedColors";
 
-const findPalette = (id) => {
-	return seedColors.find((palette) => {
-		return palette.id === id;
-	});
-};
-
-export default function SinglePaletteRoute() {
+export default function SinglePaletteRoute({ palettes }) {
 	const { paletteId, colorId } = useParams();
+	const findPalette = (id) => {
+		return palettes.find((palette) => {
+			return palette.id === id;
+		});
+	};
 	return (
 		<SingleColorPalette
 			palette={generatePalette(findPalette(paletteId))}

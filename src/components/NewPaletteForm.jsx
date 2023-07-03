@@ -15,6 +15,7 @@ import { styled, useTheme } from "@mui/material/styles";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
+import { useNavigate } from "react-router-dom";
 import DraggableColorBox from "./DraggableColorBox";
 
 const drawerWidth = 400;
@@ -65,31 +66,39 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 	justifyContent: "flex-end",
 }));
 
-export default function NewPaletteForm() {
+export default function NewPaletteForm({ palettes, savePalette }) {
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
 
 	const [currentColor, setCurrentColor] = useState("tomato");
-	const [colors, setColors] = useState([{ color: "blue", name: "blue" }]);
-	const [newName, setNewName] = useState("");
+	const [colors, setColors] = useState([{ name: "blue", color: "blue" }]);
+	const [newColorName, setNewColorName] = useState("");
+	const [newPaletteName, setNewPaletteName] = useState("");
+
+	let navigate = useNavigate();
 
 	useEffect(() => {
+		ValidatorForm.addValidationRule("isColorUnique", () => {
+			return colors.every(({ color }) => color !== currentColor);
+		});
 		ValidatorForm.addValidationRule("isColorNameUnique", (value) => {
 			return colors.every(
 				({ name }) => name.toLowerCase() !== value.toLowerCase()
 			);
 		});
-		ValidatorForm.addValidationRule("isColorUnique", () => {
-			return colors.every(({ color }) => color !== currentColor);
+		ValidatorForm.addValidationRule("isPaletteNameUnique", (value) => {
+			return palettes.every(
+				({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
+			);
 		});
 	});
 
 	useEffect(() => {
 		// componentWillUnmount
 		return () => {
-			// Your code here
 			ValidatorForm.removeValidationRule("isColorUnique");
 			ValidatorForm.removeValidationRule("isColorNameUnique");
+			ValidatorForm.removeValidationRule("isPaletteNameUnique");
 		};
 	}, []);
 
@@ -106,19 +115,33 @@ export default function NewPaletteForm() {
 	};
 
 	const addNewColor = () => {
-		let newColor = { color: currentColor, name: newName };
-		setNewName("");
+		let newColor = { name: newColorName, color: currentColor };
+		setNewColorName("");
 		setColors((Colors) => [...Colors, newColor]);
 	};
 
-	const handleTextChange = (e) => {
-		setNewName(e.target.value);
+	const handleNewColorChange = (e) => {
+		setNewColorName(e.target.value);
+	};
+
+	const handleNewPaletteChange = (e) => {
+		setNewPaletteName(e.target.value);
+	};
+
+	const handlePaletteSave = () => {
+		const newPalette = {
+			paletteName: newPaletteName,
+			id: newPaletteName.toLowerCase().replace(/ /g, "-"),
+			colors: colors,
+		};
+		savePalette(newPalette);
+		navigate("/");
 	};
 
 	return (
 		<Box sx={{ display: "flex" }}>
 			<CssBaseline />
-			<AppBar position="fixed" open={open}>
+			<AppBar position="fixed" open={open} color="default">
 				<Toolbar>
 					<IconButton
 						color="inherit"
@@ -132,6 +155,23 @@ export default function NewPaletteForm() {
 					<Typography variant="h6" noWrap component="div">
 						Persistent drawer
 					</Typography>
+
+					<ValidatorForm onSubmit={handlePaletteSave}>
+						<TextValidator
+							label="Palette Name"
+							value={newPaletteName}
+							onChange={handleNewPaletteChange}
+							validators={["required", "isPaletteNameUnique"]}
+							errorMessages={[
+								"Enter palette name!",
+								"Palette's name must be unique!",
+							]}
+						/>
+
+						<Button variant="contained" color="primary" type="submit">
+							Save Palette
+						</Button>
+					</ValidatorForm>
 				</Toolbar>
 			</AppBar>
 			<Drawer
@@ -172,8 +212,8 @@ export default function NewPaletteForm() {
 				/>
 				<ValidatorForm onSubmit={addNewColor}>
 					<TextValidator
-						value={newName}
-						onChange={handleTextChange}
+						value={newColorName}
+						onChange={handleNewColorChange}
 						validators={["required", "isColorNameUnique", "isColorUnique"]}
 						errorMessages={[
 							"this field is required",

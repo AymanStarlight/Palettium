@@ -17,3 +17,5 @@
 - Added a Drawer and a Color Picker to the NewPaletteForm Component
 - Added the functionality of adding new Color Boxes to the NewPaletteForm Component using the Color Picker
 - Added Form validation to avoid duplicate colors & colors's names
+- Added the functionality of adding the newly created Palettes to the home screen (Palette List)
+- Added Form validation to avoid duplicate Palettes's name & ID

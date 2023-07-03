@@ -26,7 +26,7 @@ function Palette(props) {
 		setFormat(val);
 	};
 	return (
-		<div className="Palette h-screen flex flex-col">
+		<div className="Palette h-screen flex flex-col overflow-hidden">
 			<NavBar
 				level={level}
 				changeLevel={changeLevel}
