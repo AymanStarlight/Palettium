@@ -12,11 +12,11 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { styled, useTheme } from "@mui/material/styles";
-import * as React from "react";
 import { useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DraggablecolorList from "./DraggablecolorList";
+import PaletteMetaForm from "./PaletteMetaForm";
 
 const drawerWidth = 400;
 
@@ -47,6 +47,9 @@ const AppBar = styled(MuiAppBar, {
 		easing: theme.transitions.easing.sharp,
 		duration: theme.transitions.duration.leavingScreen,
 	}),
+	flexDirection: "row",
+	justifyContent: "space-between",
+	alignItems: "center",
 	...(open && {
 		width: `calc(100% - ${drawerWidth}px)`,
 		marginLeft: `${drawerWidth}px`,
@@ -72,12 +75,12 @@ export default function NewPaletteForm({
 	maxColors = 20,
 }) {
 	const theme = useTheme();
-	const [open, setOpen] = React.useState(true);
+	const [open, setOpen] = useState(true);
 
 	const [currentColor, setCurrentColor] = useState("tomato");
 	const [colors, setColors] = useState(palettes[6].colors);
 	const [newColorName, setNewColorName] = useState("");
-	const [newPaletteName, setNewPaletteName] = useState("");
+	const [isFormShowing, setIsFormShowing] = useState(false);
 
 	const paletteFull = colors.length >= maxColors;
 	let navigate = useNavigate();
@@ -91,11 +94,6 @@ export default function NewPaletteForm({
 				({ name }) => name.toLowerCase() !== value.toLowerCase()
 			);
 		});
-		ValidatorForm.addValidationRule("isPaletteNameUnique", (value) => {
-			return palettes.every(
-				({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
-			);
-		});
 	});
 
 	useEffect(() => {
@@ -103,7 +101,6 @@ export default function NewPaletteForm({
 		return () => {
 			ValidatorForm.removeValidationRule("isColorUnique");
 			ValidatorForm.removeValidationRule("isColorNameUnique");
-			ValidatorForm.removeValidationRule("isPaletteNameUnique");
 		};
 	}, []);
 
@@ -129,15 +126,12 @@ export default function NewPaletteForm({
 		setNewColorName(e.target.value);
 	};
 
-	const handleNewPaletteChange = (e) => {
-		setNewPaletteName(e.target.value);
-	};
-
-	const handlePaletteSave = () => {
+	const handlePaletteSave = (newPaletteName, emoji) => {
 		const newPalette = {
 			paletteName: newPaletteName,
 			id: newPaletteName.toLowerCase().replace(/ /g, "-"),
 			colors: colors,
+			emoji: emoji,
 		};
 		savePalette(newPalette);
 		navigate("/");
@@ -159,6 +153,14 @@ export default function NewPaletteForm({
 		setColors([...colors, randomColor]);
 	};
 
+	const showForm = () => {
+		setIsFormShowing(true);
+	};
+
+	const hideForm = () => {
+		setIsFormShowing(false);
+	};
+
 	return (
 		<Box sx={{ display: "flex" }}>
 			<CssBaseline />
@@ -174,27 +176,35 @@ export default function NewPaletteForm({
 						<MenuIcon />
 					</IconButton>
 					<Typography variant="h6" noWrap component="div">
-						Persistent drawer
+						Create a Palette
 					</Typography>
-
-					<ValidatorForm onSubmit={handlePaletteSave}>
-						<TextValidator
-							label="Palette Name"
-							value={newPaletteName}
-							onChange={handleNewPaletteChange}
-							validators={["required", "isPaletteNameUnique"]}
-							errorMessages={[
-								"Enter palette name!",
-								"Palette's name must be unique!",
-							]}
-						/>
-
-						<Button variant="contained" color="primary" type="submit">
-							Save Palette
-						</Button>
-					</ValidatorForm>
 				</Toolbar>
+				<div className="mr-4">
+					<Link to="/">
+						<Button
+							variant="contained"
+							color="secondary"
+							sx={{ margin: "0 0.5rem" }}
+						>
+							Go Back
+						</Button>
+					</Link>
+					<Button
+						variant="contained"
+						onClick={showForm}
+						sx={{ margin: "0 0.5rem" }}
+					>
+						Save
+					</Button>
+				</div>
 			</AppBar>
+			{isFormShowing && (
+				<PaletteMetaForm
+					handlePaletteSave={handlePaletteSave}
+					palettes={palettes}
+					hideForm={hideForm}
+				/>
+			)}
 			<Drawer
 				sx={{
 					width: drawerWidth,
@@ -202,6 +212,8 @@ export default function NewPaletteForm({
 					"& .MuiDrawer-paper": {
 						width: drawerWidth,
 						boxSizing: "border-box",
+						display: "flex",
+						alignItems: "center",
 					},
 				}}
 				variant="persistent"
@@ -218,45 +230,60 @@ export default function NewPaletteForm({
 					</IconButton>
 				</DrawerHeader>
 				<Divider />
-				<Typography variant="h4">Design Your Palette</Typography>
-				<div>
-					<Button variant="contained" color="secondary" onClick={clearPalette}>
-						Clear Palette
-					</Button>
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={randomColor}
-						disabled={paletteFull}
-					>
-						{paletteFull ? "Palette Full" : "Random Color"}
-					</Button>
-				</div>
-				<ChromePicker
-					color={currentColor}
-					onChangeComplete={(color) => updateCurrentColor(color)}
-				/>
-				<ValidatorForm onSubmit={addNewColor}>
-					<TextValidator
-						value={newColorName}
-						onChange={handleNewColorChange}
-						validators={["required", "isColorNameUnique", "isColorUnique"]}
-						errorMessages={[
-							"this field is required",
-							"Color's name must be unique!",
-							"Color already taken!",
-						]}
+				<div className="w-[90%] h-full flex flex-col justify-center items-center">
+					<Typography variant="h4" mb={"5rem"}>
+						Design Your Palette
+					</Typography>
+					<div className="w-full">
+						<Button
+							variant="contained"
+							color="error"
+							onClick={clearPalette}
+							className="w-1/2"
+						>
+							Clear Palette
+						</Button>
+						<Button
+							variant="contained"
+							onClick={randomColor}
+							disabled={paletteFull}
+							className="w-1/2 "
+						>
+							{paletteFull ? "Palette Full" : "Random Color"}
+						</Button>
+					</div>
+					<ChromePicker
+						color={currentColor}
+						onChangeComplete={(color) => updateCurrentColor(color)}
+						className="!w-[100%] mt-8"
 					/>
+					<ValidatorForm className="w-full" onSubmit={addNewColor}>
+						<TextValidator
+							value={newColorName}
+							onChange={handleNewColorChange}
+							validators={["required", "isColorNameUnique", "isColorUnique"]}
+							errorMessages={[
+								"this field is required",
+								"Color's name must be unique!",
+								"Color already taken!",
+							]}
+							className="w-full h-[70px]"
+							margin="normal"
+							label="Color's Name"
+							variant="filled"
+						/>
 
-					<Button
-						type="submit"
-						variant="contained"
-						sx={{ bgcolor: currentColor }}
-						disabled={paletteFull}
-					>
-						{paletteFull ? "Palette Full" : "Add Color"}
-					</Button>
-				</ValidatorForm>
+						<Button
+							type="submit"
+							variant="contained"
+							sx={{ bgcolor: currentColor }}
+							disabled={paletteFull}
+							className="w-full p-4 mt-4 !text-[2rem]"
+						>
+							{paletteFull ? "Palette Full" : "Add Color"}
+						</Button>
+					</ValidatorForm>
+				</div>
 			</Drawer>
 			<Main open={open}>
 				<DrawerHeader />

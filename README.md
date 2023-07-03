@@ -21,3 +21,5 @@
 - Added Form validation to avoid duplicate Palettes's name & ID
 - Added the option to delete added colors in the create Palette Form
 - Added the option to add a random color & the option to clear the palette
+- Added an overlay to give the newly created Palette a name
+- Added an Emoji Picker to assign an emoji to the newly created Palette
