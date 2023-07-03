@@ -1,6 +1,6 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function DraggableColorBox({ color, name, handleDelete }) {
+export default function DraggableColorBox({ name, color, handleDelete }) {
 	return (
 		<div
 			className="w-1/5 h-1/4 mx-o my-auto inline-block relative cursor-pointer mb-[-7px]"
@@ -10,7 +10,7 @@ export default function DraggableColorBox({ color, name, handleDelete }) {
 				<span>{name}</span>
 				<DeleteIcon
 					onClick={handleDelete}
-					className="hover:text-white hover:scale-[1.25] transition-all duration-300 ease-in-out"
+					className="hover:text-white hover:scale-[1.25]"
 				/>
 			</div>
 		</div>
