@@ -138,6 +138,11 @@ export default function NewPaletteForm({ palettes, savePalette }) {
 		navigate("/");
 	};
 
+	const handleDelete = (colorName) => {
+		let nColors = colors.filter((c) => c.name !== colorName);
+		setColors(nColors);
+	};
+
 	return (
 		<Box sx={{ display: "flex" }}>
 			<CssBaseline />
@@ -237,9 +242,10 @@ export default function NewPaletteForm({ palettes, savePalette }) {
 				{colors.map((color) => {
 					return (
 						<DraggableColorBox
-							key={color.color}
+							key={color.name}
 							color={color.color}
 							name={color.name}
+							handleDelete={() => handleDelete(color.name)}
 						/>
 					);
 				})}

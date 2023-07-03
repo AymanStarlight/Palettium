@@ -19,3 +19,4 @@
 - Added Form validation to avoid duplicate colors & colors's names
 - Added the functionality of adding the newly created Palettes to the home screen (Palette List)
 - Added Form validation to avoid duplicate Palettes's name & ID
+- Added the option to delete added colors in the create Palette Form
