@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "../styles/PaletteList.css";
 import MiniPalette from "./MiniPalette";
 
-export default function PaletteList(props) {
+export default function PaletteList({ palettes, removePalette }) {
 	return (
 		<div className="palette-list bg-blue-500 h-screen flex items-start justify-center">
 			<div className="container w-1/2 flex items-start flex-wrap flex-col ">
@@ -13,8 +13,12 @@ export default function PaletteList(props) {
 					</Link>
 				</nav>
 				<div className="palettes">
-					{props.palettes.map((palette) => (
-						<MiniPalette key={palette.id} {...palette} />
+					{palettes.map((palette) => (
+						<MiniPalette
+							key={palette.id}
+							removePalette={removePalette}
+							{...palette}
+						/>
 					))}
 				</div>
 			</div>

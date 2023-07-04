@@ -1,7 +1,6 @@
 import { ChromePicker } from "@hello-pangea/color-picker";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import MenuIcon from "@mui/icons-material/Menu";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { Button } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -11,7 +10,7 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { Link, useNavigate } from "react-router-dom";
@@ -24,7 +23,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 	({ theme, open }) => ({
 		flexGrow: 1,
 		height: "calc(100vh - 64px)",
-		padding: theme.spacing(3),
+		padding: 0,
 		transition: theme.transitions.create("margin", {
 			easing: theme.transitions.easing.sharp,
 			duration: theme.transitions.duration.leavingScreen,
@@ -64,6 +63,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 	display: "flex",
 	alignItems: "center",
 	padding: theme.spacing(0, 1),
+	width: "100%",
 	// necessary for content to be below app bar
 	...theme.mixins.toolbar,
 	justifyContent: "flex-end",
@@ -74,7 +74,6 @@ export default function NewPaletteForm({
 	savePalette,
 	maxColors = 20,
 }) {
-	const theme = useTheme();
 	const [open, setOpen] = useState(true);
 
 	const [currentColor, setCurrentColor] = useState("tomato");
@@ -173,7 +172,7 @@ export default function NewPaletteForm({
 						edge="start"
 						sx={{ mr: 2, ...(open && { display: "none" }) }}
 					>
-						<MenuIcon />
+						<AddBoxIcon />
 					</IconButton>
 					<Typography variant="h6" noWrap component="div">
 						Create a Palette
@@ -222,11 +221,7 @@ export default function NewPaletteForm({
 			>
 				<DrawerHeader>
 					<IconButton onClick={handleDrawerClose}>
-						{theme.direction === "ltr" ? (
-							<ChevronLeftIcon />
-						) : (
-							<ChevronRightIcon />
-						)}
+						<ArrowBackIosNewIcon />
 					</IconButton>
 				</DrawerHeader>
 				<Divider />
