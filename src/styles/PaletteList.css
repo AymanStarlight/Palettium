@@ -21,3 +21,11 @@
 	grid-template-columns: repeat(3, 30%);
 	grid-gap: 5%;
 }
+
+.fade-exit {
+	opacity: 1;
+}
+.fade-exit-active {
+	opacity: 0;
+	transition: opacity 500ms ease-out;
+}

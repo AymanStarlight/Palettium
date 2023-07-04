@@ -26,3 +26,4 @@
 - Palettes are now saved in the Browser's Local Storage, with 9 Palettes already preloaded
 - Added the option to delete Palettes from the home page
 - Added an SVG background to the Home page with some styles
+- Added an animation to the palette deletion
