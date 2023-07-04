@@ -6,7 +6,7 @@ export default function MiniPalette({
 	emoji,
 	paletteName,
 	id,
-	removePalette,
+	openDialog,
 }) {
 	const miniColorBoxes = colors.map((color) => (
 		<div
@@ -19,7 +19,7 @@ export default function MiniPalette({
 	const deletePalette = (event) => {
 		event.preventDefault();
 		event.stopPropagation();
-		removePalette(id);
+		openDialog(id);
 	};
 
 	return (
