@@ -4,11 +4,11 @@ import MiniPalette from "./MiniPalette";
 
 export default function PaletteList({ palettes, removePalette }) {
 	return (
-		<div className="palette-list bg-blue-500 h-screen flex items-start justify-center">
+		<div className="palette-list h-screen flex items-start justify-center">
 			<div className="container w-1/2 flex items-start flex-wrap flex-col ">
-				<nav className="flex justify-between items-center w-full text-white">
-					<h1 className="text-3xl">React Colors</h1>
-					<Link to="/palette/create" className="text-xl underline">
+				<nav className="flex justify-between items-center w-full text-white my-4">
+					<p className="text-4xl">React Colors</p>
+					<Link to="/palette/create" className="text-xl underline mr-3">
 						Create Palette
 					</Link>
 				</nav>
