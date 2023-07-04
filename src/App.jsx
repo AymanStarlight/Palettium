@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 import PaletteList from "./components/PaletteList";
 import PaletteFormRoute from "./routes/PaletteFormRoute.jsx";
@@ -8,17 +8,27 @@ import SinglePaletteRoute from "./routes/SinglePaletteRoute.jsx";
 import seedColors from "./seedColors";
 
 function App() {
-	const [palettes, setPalettes] = useState(seedColors);
+	const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"));
+	const [palettes, setPalettes] = useState(savedPalettes || seedColors);
+
+	const removePalette = (id) => {
+		setPalettes((pts) => pts.filter((pt) => pt.id !== id));
+	};
 
 	const savePalette = (newPalette) => {
 		setPalettes([...palettes, newPalette]);
-		console.log(palettes);
 	};
+
+	useEffect(() => {
+		window.localStorage.setItem("palettes", JSON.stringify(palettes));
+	}, [palettes]);
 
 	const router = createBrowserRouter([
 		{
 			path: "/",
-			element: <PaletteList palettes={palettes} />,
+			element: (
+				<PaletteList palettes={palettes} removePalette={removePalette} />
+			),
 		},
 		{
 			path: "/palette/create",

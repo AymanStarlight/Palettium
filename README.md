@@ -23,3 +23,4 @@
 - Added the option to add a random color & the option to clear the palette
 - Added an overlay to give the newly created Palette a name
 - Added an Emoji Picker to assign an emoji to the newly created Palette
+- Palettes are now saved in the Browser's Local Storage, with 9 Palettes already preloaded
