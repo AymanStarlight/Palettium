@@ -148,8 +148,15 @@ export default function NewPaletteForm({
 
 	const randomColor = () => {
 		let allColors = palettes.map((palette) => palette.colors).flat();
-		let rand = Math.floor(Math.random() * allColors.length);
-		let randomColor = allColors[rand];
+		let rand;
+		let randomColor;
+		let isDupicateColor = true;
+		while (isDupicateColor) {
+			rand = Math.floor(Math.random() * allColors.length);
+			randomColor = allColors[rand];
+			isDupicateColor = colors.some((color) => color.name === randomColor.name);
+		}
+
 		setColors([...colors, randomColor]);
 	};
 
@@ -253,7 +260,11 @@ export default function NewPaletteForm({
 						onChangeComplete={(color) => updateCurrentColor(color)}
 						className="!w-[100%] mt-8"
 					/>
-					<ValidatorForm className="w-full" onSubmit={addNewColor}>
+					<ValidatorForm
+						className="w-full"
+						onSubmit={addNewColor}
+						instantValidate={false}
+					>
 						<TextValidator
 							value={newColorName}
 							onChange={handleNewColorChange}
