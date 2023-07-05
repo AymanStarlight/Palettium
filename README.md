@@ -28,3 +28,4 @@
 - Added an SVG background to the Home page with some styles
 - Added an animation to the palette deletion
 - Added a delete confirmation overlay
+- Added an Animation to Route Transitions

@@ -12,9 +12,9 @@ function PaletteRoute({ palettes }) {
 	};
 
 	return (
-		<>
+		<div>
 			<Palette palette={generatePalette(findPalette(id))} />
-		</>
+		</div>
 	);
 }
 

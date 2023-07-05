@@ -33,7 +33,7 @@ export default function SingleColorPalette({ palette, color }) {
 	});
 
 	return (
-		<div className="h-screen flex flex-col">
+		<div className="h-screen flex flex-col overflow-hidden">
 			<NavBar changeFormat={changeFormat} singleColor={true} />
 			<div className="h-[90%]">
 				{colorBoxes}

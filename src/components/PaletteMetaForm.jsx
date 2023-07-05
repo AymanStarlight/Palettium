@@ -50,6 +50,7 @@ export default function PaletteMetaForm({
 	const savePalette = (emo) => {
 		const emoji = emo.native;
 		handlePaletteSave(newPaletteName, emoji);
+		setStage("");
 	};
 
 	return (
