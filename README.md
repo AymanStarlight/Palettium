@@ -29,3 +29,4 @@
 - Added an animation to the palette deletion
 - Added a delete confirmation overlay
 - Added an Animation to Route Transitions
+- Added Dynamic Text-Color changing based on Luminosity in the New Palette Form

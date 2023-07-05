@@ -14,6 +14,7 @@ import { styled } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import { TextValidator, ValidatorForm } from "react-material-ui-form-validator";
 import { Link, useNavigate } from "react-router-dom";
+import seedColors from "../seedColors";
 import DraggablecolorList from "./DraggablecolorList";
 import PaletteMetaForm from "./PaletteMetaForm";
 
@@ -77,7 +78,7 @@ export default function NewPaletteForm({
 	const [open, setOpen] = useState(true);
 
 	const [currentColor, setCurrentColor] = useState("tomato");
-	const [colors, setColors] = useState(palettes[6].colors);
+	const [colors, setColors] = useState(seedColors[6].colors);
 	const [newColorName, setNewColorName] = useState("");
 	const [isFormShowing, setIsFormShowing] = useState(false);
 
