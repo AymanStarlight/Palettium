@@ -40,7 +40,7 @@ export default function PaletteList({ palettes, removePalette }) {
 		<div className="palette-list h-screen flex items-start justify-center">
 			<div className="container w-1/2 flex items-start flex-wrap flex-col ">
 				<nav className="flex justify-between items-center w-full text-white my-4">
-					<p className="text-4xl">React Colors</p>
+					<p className="text-4xl">Palettium</p>
 					<Link to="/palette/create" className="text-xl underline mr-3">
 						Create Palette
 					</Link>

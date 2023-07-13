@@ -23,7 +23,7 @@ export default function NavBar({
 		<header className="flex items-center justify-start h-[6vh]">
 			<div className="logo mr-[15px] px-[13px] py-0 text-[22px] bg-[#eceff1] h-full flex items-center">
 				<Link to="/" className="text-black">
-					reactcolorpicker
+					Palettium
 				</Link>
 			</div>
 			{!singleColor && (
