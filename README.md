@@ -1,4 +1,5 @@
 Palettium is A Features-Rich Single Page Application for Creating, Viewing and Sharing Color Palettes.
+https://palettium.vercel.app/
 
 # **Changes**
 
