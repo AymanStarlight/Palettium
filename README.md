@@ -1,3 +1,5 @@
+Palettium is A Features-Rich Single Page Application for Creating, Viewing and Sharing Color Palettes.
+
 # **Changes**
 
 - Created the Palette & ColorBox Components with basic styling
